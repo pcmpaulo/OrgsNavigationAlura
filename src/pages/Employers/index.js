@@ -2,10 +2,13 @@ import React from 'react';
 import HeaderComponent from './components/Header';
 import EmployersComponent from './components/Employers';
 
-export default function EmployersPage() {
+export default function EmployersPage({bestEmployers}) {
   return (
     <>
-      <EmployersComponent header={HeaderComponent} />
+      <EmployersComponent
+        bestEmployers={bestEmployers}
+        header={HeaderComponent}
+      />
     </>
   );
 }

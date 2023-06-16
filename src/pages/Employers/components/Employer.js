@@ -1,19 +1,37 @@
-import React, { useMemo, useReducer, useState } from "react";
+import React, {useMemo, useReducer} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import StarsComponent from '../../../components/Stars';
+import {useNavigation} from '@react-navigation/native';
 
 const formatDistance = distance => {
   return `${distance}m`;
 };
 
-export default function EmployerComponent({name, image, distance, rate}) {
+export default function EmployerComponent({
+  name,
+  image,
+  distance,
+  rate,
+  baskets,
+}) {
+  const navigation = useNavigation();
   const [focus, invertFocus] = useReducer(focus => !focus, false);
 
   // useMemo allow to reload formattedDistance only if {distance} change
   const formattedDistance = useMemo(() => formatDistance(distance), [distance]);
 
+  const goToEmployerDetail = () => {
+    navigation.navigate('EmployerDetail', {
+      name: name,
+      image: image,
+      distance: distance,
+      rate: rate,
+      baskets: baskets,
+    });
+  };
+
   return (
-    <TouchableOpacity style={styles.component} onPress={invertFocus}>
+    <TouchableOpacity style={styles.component} onPress={goToEmployerDetail}>
       <Image style={styles.image} source={image} accessibilityLabel={name} />
       <View style={styles.details}>
         <View>

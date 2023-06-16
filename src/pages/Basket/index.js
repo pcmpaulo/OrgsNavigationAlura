@@ -1,20 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import HeaderComponent from './components/Header';
 
 import DetailsComponent from './components/Details';
 import ItemsComponent from './components/items';
-import {loadBasket, loadEmployers} from '../../services/loadData';
+import {useRoute} from '@react-navigation/native';
 
 //index is the default object imported for the module Basket
-export default function BasketPage({employer, items, details}) {
+export default function BasketPage() {
+  const route = useRoute();
+  const {employer, items, details} = route.params;
 
   return (
     <ScrollView>
       <HeaderComponent />
       <View style={styles.detailCard}>
-        <DetailsComponent {...details} employer={employer} />
-        <ItemsComponent {...items} />
+        <DetailsComponent
+          {...details}
+          employer={employer}
+          buttonLabel={'Buy now'}
+        />
+        <ItemsComponent title="Itens da Cesta" productList={items} />
       </View>
     </ScrollView>
   );
